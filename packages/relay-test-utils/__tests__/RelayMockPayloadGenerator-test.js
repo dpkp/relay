@@ -1619,3 +1619,28 @@ describe('with @relay_test_operation', () => {
     );
   });
 });
+
+test('generate mock for null linked field', () => {
+  testGeneratedData(`
+    query TestQuery {
+      node(id: "my-id") {
+        ...TestFragment
+      }
+    }
+
+    fragment TestFragment on User {
+      id
+      name
+      profile_picture {
+        uri
+        width
+        height
+      }
+    }`,
+    {
+      Image() {
+        return null;
+      }
+    },
+  );
+});

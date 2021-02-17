@@ -216,6 +216,37 @@ fragment TestFragment on User {
 }
 `;
 
+exports[`generate mock for null linked field 1`] = `
+~~~~~~~~~~ INPUT ~~~~~~~~~~
+query TestQuery {
+  node(id: "my-id") {
+    ...TestFragment
+  }
+}
+
+fragment TestFragment on User {
+  id
+  name
+  profile_picture {
+    uri
+    width
+    height
+  }
+}
+
+~~~~~~~~~~ OUTPUT ~~~~~~~~~~
+{
+  "data": {
+    "node": {
+      "__typename": "User",
+      "id": "<mock-id-1>",
+      "name": "<mock-value-for-field-\\"name\\">",
+      "profile_picture": null
+    }
+  }
+}
+`;
+
 exports[`generate mock for objects without concrete type 1`] = `
 ~~~~~~~~~~ INPUT ~~~~~~~~~~
 query TestQuery {

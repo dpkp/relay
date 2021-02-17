@@ -685,14 +685,17 @@ class RelayMockPayloadGenerator {
       field.concreteType === null && typeName === typeFromSelection.type;
 
     const generateDataForField = possibleDefaultValue => {
-      const fieldDefaultValue =
+      let fieldDefaultValue =
         this._getDefaultValuesForObject(
           field.concreteType ?? typeFromSelection.type,
           field.name,
           field.alias,
           selectionPath,
           args,
-        ) ?? possibleDefaultValue;
+        );
+      if (fieldDefaultValue === undefined) {
+        fieldDefaultValue = possibleDefaultValue;
+      }
 
       if (fieldDefaultValue === null) {
         return null;
